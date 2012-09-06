@@ -195,6 +195,8 @@ autoComplete: [
 ],
 ```
 
+Note that you can use a 'termChanged' function callback to build dynamically populated autocompletes.
+
 ## Similar projects
 
 If you are interested in more complicated data grid solutions, consider:

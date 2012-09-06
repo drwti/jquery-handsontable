@@ -1361,6 +1361,15 @@ var Handsontable = { //class namespace
                   priv.undoRedo && priv.undoRedo.undo();
                 }
               }
+
+              if (!ctrlDown) {
+                // "termChanged" callback for term-specific typeahead
+                var typeahead = priv.editProxy.data("typeahead");
+                if (typeahead && typeahead.termChanged) {
+                var term = priv.editProxy.val() + String.fromCharCode(event.keyCode);
+                typeahead.termChanged(term);
+              }
+
               return;
             }
 
@@ -1601,10 +1610,12 @@ var Handsontable = { //class namespace
             typeahead = priv.editProxy.data('typeahead');
           }
           typeahead.source = [];
+          typeahead.termChanged = null;
           for (var i = 0, ilen = priv.settings.autoComplete.length; i < ilen; i++) {
             if (priv.settings.autoComplete[i].match(priv.selStart.row, priv.selStart.col, datamap.getAll)) {
               typeahead.source = priv.settings.autoComplete[i].source(priv.selStart.row, priv.selStart.col);
               typeahead.highlighter = priv.settings.autoComplete[i].highlighter || defaultAutoCompleteHighlighter;
+              typeahead.termChanged = priv.settings.autoComplete[i].termChanged;
               break;
             }
           }
