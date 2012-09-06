@@ -1796,6 +1796,8 @@ var Handsontable = { //class namespace
           priv.editProxyHolder.css({
             overflow: 'hidden'
           });
+        } else {
+          endTd = true;
         }
         if (endTd && typeof moveRow !== "undefined" && typeof moveCol !== "undefined") {
           selection.transformStart(moveRow, moveCol, !priv.settings.enterBeginsEditing);
