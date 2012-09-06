@@ -1360,6 +1360,14 @@ var Handsontable = { //class namespace
                 else if (event.keyCode === 90) { //CTRL + Z
                   priv.undoRedo && priv.undoRedo.undo();
                 }
+
+                // turn off "autocomplete" when copying or pasting
+                if (event.keyCode === 67 || event.keyCode == 86) {
+                  var typeahead = priv.editProxy.data("typeahead");
+                  if (typeahead && typeahead.source) {
+                    typeahead.source = []; // less hacky way to do this desired
+                  }
+                }
               }
 
               if (!ctrlDown) {
