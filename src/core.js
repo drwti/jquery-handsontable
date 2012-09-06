@@ -1366,8 +1366,9 @@ var Handsontable = { //class namespace
                 // "termChanged" callback for term-specific typeahead
                 var typeahead = priv.editProxy.data("typeahead");
                 if (typeahead && typeahead.termChanged) {
-                var term = priv.editProxy.val() + String.fromCharCode(event.keyCode);
-                typeahead.termChanged(term);
+                  var term = priv.editProxy.val() + String.fromCharCode(event.keyCode);
+                  typeahead.termChanged(term);
+                }
               }
 
               return;
