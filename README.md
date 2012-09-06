@@ -95,6 +95,7 @@ The table below presents configuration options that are interpreted by `handsont
  `autoWrapCol`           | boolean                        | false            | If true, pressing ENTER or down arrow in the last row will move to first row in next column
  `legend`                | array                          | _undefined_      | Legend definitions. See **Defining legend**
  `autocomplete`          | array                          | _undefined_      | Autocomplete definitions. See **Defining autocomplete**
+ `hotkeys`               | array                          | _undefined_      | Hotkey definitions. See **Defining hotkeys**
  `onSelection`           | function(`r`, `c`, `r2`, `c2`) | _undefined_      | Callback fired before one or more cells is selected. You can call `updateSettings` from inside, e.g. if you want to disable fillHandle for a specific cell. Parameters: <ul><li>`r` selection start row</li><li>`c` selection start column</li><li>`r2` selection end column</li><li>`c2` selection end column</li></ul>
  `onBeforeChange`        | function(`changes`)            | _undefined_      | Callback fired before one or more cells is changed. Its main purpose is to validate the input. Parameters: <ul><li>`changes` is a 2D array containing information about each of the edited cells `[ [row, col, oldVal, newVal], ... ]`. You can disregard a single change by setting `changes[i][3]` to false, or cancel all edit by returning false.</li></ul>
  `onChange`              | function(`changes`, `source`)  | _undefined_      | Callback fired after one or more cells is changed. Its main use case is to save the input. Parameters: <ul><li>`changes` is a 2D array containing information about each of the edited cells `[ [row, col, oldVal, newVal], ... ]`. </li><li>`source` is one of the strings: `"alter"`, `"empty"`, `"edit"`, `"populateFromArray"`, `"loadData"`, `"autofill"`, `"paste"`.</li></ul>
@@ -125,6 +126,27 @@ legend: [
       click: initCalendar // function to call when the icon is clicked
     }
   }
+```
+
+### Defining hotkeys
+
+The `hotkeys` option allows for cell-specific hotkey commands
+
+Example: 
+
+```js
+hotkeys: [
+  {
+    match: function(row, col, key) {
+      return key == 107; /** + **/
+    },
+    action: function(row, col, key) {
+      var oldval = $('#my-grid').handsontable('getDataAtCell', row, col);
+      var newval = parseInt(oldVal) + 1;
+      $('#my-grid').handsontable('setDataAtCell', row, col, newval);
+    }
+  }
+]
 ```
 
 ### Defining autocomplete

@@ -1333,6 +1333,15 @@ var Handsontable = { //class namespace
             var ctrlDown = (event.ctrlKey || event.metaKey) && !event.altKey; //catch CTRL but not right ALT (which in some systems triggers ALT+CTRL)
             if (Handsontable.helper.isPrintableChar(event.keyCode)) {
               if (!priv.isCellEdited && !ctrlDown) { //disregard CTRL-key shortcuts
+                if (priv.settings.hotkeys && !selection.isMultiple()) {
+                  for (var i = 0, ilen = priv.settings.hotkeys.length; i < ilen; i++) {
+                    if (priv.settings.hotkeys[i].match(priv.selStart.row, priv.selStart.col, event.keyCode)) {
+                      priv.settings.hotkeys[i].action(priv.selStart.row, priv.selStart.col, event.keyCode);
+                      return false;
+                    }
+                  }
+                }
+
                 editproxy.beginEditing();
               }
               else if (ctrlDown) {
