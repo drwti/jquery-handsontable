@@ -1590,7 +1590,9 @@ var Handsontable = { //class namespace
         if (priv.settings.autoComplete) {
           var typeahead = priv.editProxy.data('typeahead');
           if (!typeahead) {
+            var typeaheadItems = (priv.settings.typeaheadItems) ? priv.settings.typeaheadItems : 8;
             priv.editProxy.typeahead({
+              items: typeaheadItems,
               updater: function (item) {
                 priv.lastAutoComplete = item;
                 return item
