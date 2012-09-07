@@ -663,10 +663,7 @@ var Handsontable = { //class namespace
        * Is cell writable
        */
       isCellWritable: function ($td) {
-        if (priv.isPopulated && $td.data("readOnly")) {
-          return false;
-        }
-        return true;
+        return !$td.data("readOnly");
       },
 
       /**
